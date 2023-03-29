@@ -5,6 +5,6 @@ module.exports = {
   password: process.env.PASSWORD,
   apiUrl: process.env.API_URL,
   dbuser: process.env.DB_USER,
-  dbpassword: DB_PASSWORD,
-  dbconnection:DB_CONNECTION_STRING
+  dbpassword: procces.env.DB_PASSWORD,
+  dbconnection:procces.env.DB_CONNECTION_STRING
 };

@@ -1,7 +1,7 @@
 const oracledb = require('oracledb');
 const config = require('../config/config.js');
 
-const config = {
+const conf = {
   user: config.dbuser,
   password: config.dbpassword,
   connectString: config.dbconnection,
