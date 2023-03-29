@@ -1,10 +1,10 @@
 const oracledb = require('oracledb');
-const config = require('../config/config.js');
+const dbConfig = require('../config/config.js');
 
 const config = {
-  user: config.dbuser,
-  password: config.dbpassword,
-  connectString: config.dbconnection,
+  user: dbConfig.dbuser,
+  password: dbConfig.dbpassword,
+  connectString: dbConfig.dbconnection,
 };
 
 async function runQuery(query, params) {

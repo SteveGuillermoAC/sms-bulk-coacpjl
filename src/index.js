@@ -3,18 +3,23 @@ const https = require('https');
 const express = require('express');
 const app = express();
 const path = require('path');
+const config = require('./config/config');
+
 
 // Importar rutas
-const routes = require('./routes/routes');
+const routes = require('../src/routes/routes.js');
 
 //Configuración de middleware y rutas
-app.use('/', routes);
-
+app.use('/api', routes);
 const port = process.env.PORT || 3000;
 
 const sslOptions = {
   key: fs.readFileSync(path.join(__dirname, '../certificates/key.pem')),
-  cert: fs.readFileSync(path.join(__dirname, '../certificates/cert.pem'))
+  cert: fs.readFileSync(path.join(__dirname, '../certificates/cert.pem')),
+
+  // deveinotherpc
+  passphrase: config.keyPassphrase
+
 };
 
 https.createServer(sslOptions, app).listen(port, () => {

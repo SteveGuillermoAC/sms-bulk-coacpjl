@@ -1,5 +1,4 @@
 const { runQuery } = require('./database.js');
-
 async function getSmsData(id_transaccion) {
   try {
     const query = `
@@ -9,8 +8,9 @@ async function getSmsData(id_transaccion) {
     `;
     const result = await runQuery(query, { id_transaccion });
 
-    if (result.rows.length > 0) {
-      const row = result.rows[0];
+    // Cambia "result.rows.length" a "result.length"
+    if (result.length > 0) {
+      const row = result[0]; // Cambia "result.rows[0]" a "result[0]"
       const smsData = {
         id_mensaje: row.ID_MENSAJE,
         dt_variable: row.DT_VARIABLE,
