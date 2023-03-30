@@ -8,7 +8,7 @@ exports.sendSms = async (req, res) => {
 
     const data = {
       metodo: 'SmsEnvio',
-      id_cbm: '1',
+      id_cbm: '1', 
       id_transaccion: req.body.id_transaccion,
       telefono: req.body.telefono,
       id_mensaje: smsData.id_mensaje,
