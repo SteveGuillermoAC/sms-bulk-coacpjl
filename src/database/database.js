@@ -36,7 +36,22 @@ async function runQuery(query, params) {
     }
   }
 }
+async function insertSentMessage(data) {
+  try {
+    const query = `
+      INSERT INTO mensajes_enviados (id_transaccion, telefono, id_mensaje, dt_variable, datos, short_url, fecha, hora)
+      VALUES (:id_transaccion, :telefono, :id_mensaje, :dt_variable, :datos, :short_url, :fecha, :hora)
+    `;
+
+    await runQuery(query, data);
+    console.log('Mensaje enviado registrado en la base de datos.');
+  } catch (error) {
+    console.error('Error al registrar el mensaje enviado:', error.message);
+    throw error;
+  }
+}
 
 module.exports = {
   runQuery,
+  insertSentMessage,
 };

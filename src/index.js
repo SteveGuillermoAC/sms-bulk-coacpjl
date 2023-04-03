@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
-const path = require('path');
-const config = require('./config/config');
+//const path = require('path');
+//const config = require('./config/config');
 
 // Habilitar el middleware para analizar el cuerpo JSON
 app.use(express.json());
