@@ -3,7 +3,8 @@ const router = express.Router();
 const smsController = require('../controllers/smsController');
 
 router.post('/sms/send', smsController.sendSms); 
-router.post('/consulta-transaccion', smsController.consultaTransaccion);
-
+router.post('/sms/consulta-transaccion', (req, res) => {
+    smsController.consultarEstadoTransaccion(req, res);
+  });
 
 module.exports = router;

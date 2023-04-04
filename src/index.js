@@ -1,19 +1,25 @@
+const https = require('https');
 const express = require('express');
 const app = express();
-//const path = require('path');
-//const config = require('./config/config');
+const fs = require('fs');
+const path = require('path');
+require('dotenv').config();
 
-// Habilitar el middleware para analizar el cuerpo JSON
 app.use(express.json());
 
-// Importar rutas
 const routes = require('../src/routes/routes.js');
 
-// Configuración de middleware y rutas
 app.use('/api', routes);
 
-const port = process.env.PORT || 3000;
+const privateKey = fs.readFileSync(path.join(__dirname, '../key.pem'), 'utf8');
+const certificate = fs.readFileSync(path.join(__dirname,  '../cert.pem'), 'utf8');
 
-app.listen(port, () => {
-  console.log(`Servidor HTTP escuchando en el puerto ${port}`);
+const credentials = { key: privateKey, cert: certificate };
+
+const httpsServer = https.createServer(credentials, app);
+
+const port = process.env.PORT ||3000;
+
+httpsServer.listen(port, () => {
+  console.log(`Servidor HTTPS escuchando en el puerto ${port}`);
 });

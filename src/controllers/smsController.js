@@ -1,12 +1,18 @@
 const axios = require('axios');
 const config = require('../config/config.js');
-
+const uuid = require('uuid');
 exports.sendSms = async (req, res) => {
   try {
+    let id_transaccion = req.body.id_transaccion;
+    if (!id_transaccion) {
+      // Si no se proporciona, generar un nuevo id_transaccion
+      id_transaccion = uuid.v4(); // Generar un nuevo UUID
+    }
+
     const data = {
       metodo: 'SmsEnvio',
       id_cbm: '1100',
-      id_transaccion: req.body.id_transaccion,
+      id_transaccion,
       telefono: req.body.telefono,
       id_mensaje: req.body.id_mensaje,
       dt_variable: req.body.dt_variable,
@@ -16,11 +22,15 @@ exports.sendSms = async (req, res) => {
       fecha: req.body.fecha || null,
       hora: req.body.hora || null,
     };
-  
+   
 
     console.log('Datos enviados:', data);
+    console.log('Credenciales de config:', config.username, config.password);
 
     const auth = Buffer.from(`${config.username}:${config.password}`).toString('base64');
+    console.log('Auth string:', `${config.username}:${config.password}`);
+    console.log('Auth base64:', auth);
+
     const headers = {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
@@ -37,9 +47,9 @@ exports.sendSms = async (req, res) => {
     res.status(500).json({ message: 'Error al enviar el SMS', error: error.message });
   }
 };
-exports.consultaTransaccion = async (req, res) => {
+exports.consultarEstadoTransaccion = async (req, res) => {
   try {
-    // Extraer el id_transaccion de la solicitud
+    // Obtener el id de transacción desde el cuerpo de la solicitud
     const { id_transaccion } = req.body;
 
     // Construir la estructura de datos para la consulta
@@ -58,9 +68,7 @@ exports.consultaTransaccion = async (req, res) => {
     };
 
     // Realizar la consulta al API
-    console.log('Consultando estado de transacción...');
     const response = await axios.post(config.apiUrl, data, { headers });
-    console.log('Respuesta del API:', response.data);
 
     // Enviar la respuesta al cliente
     res.status(200).json(response.data);

@@ -1,13 +1,9 @@
-require('dotenv').config();
+const dotenv = require('dotenv');
+const path = require('path');
+dotenv.config({ path: path.resolve(__dirname, '../.env') });
 
 module.exports = {
-  username: process.env.USERNAME,
-  password: process.env.PASSWORD,
+  username: process.env.API_USERNAME,
+  password: process.env.API_PASSWORD,
   apiUrl: process.env.API_URL,
-  dbuser: process.env.DB_USER,
-  dbpassword: process.env.DB_PASSWORD,
-  dbconnection: process.env.DB_CONNECTION_STRING,
-  keyPassphrase: process.env.KEY_PASSPHRASE,
-
 };
-
