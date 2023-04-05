@@ -24,7 +24,7 @@ const credentials = { key: privateKey, cert: certificate };
 
 const httpsServer = https.createServer(credentials, app);
 
-const port = process.env.PORT ||3000;
+const port = process.env.PORT 
 
 httpsServer.listen(port, () => {
   console.log(`Servidor HTTPS escuchando en el puerto ${port}`);

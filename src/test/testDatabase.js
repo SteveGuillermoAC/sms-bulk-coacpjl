@@ -1,15 +1,14 @@
+const database = require('../../src/database/database.js');
+async function testDBConnection() {
+    const connection = await database.connect();
 
-const { runQuery } = require('../database/database.js');
-
-async function testDatabaseConnection() {
   try {
-    console.log('Probando conexión a la base de datos...');
-    const queryResult = await runQuery('SELECT 1 FROM DUAL', {});
-    console.log('Resultado de la consulta:', queryResult);
-    console.log('Conexión a la base de datos exitosa.');
+   const result = await connection.execute("SELECT nombrelegal from tpersona where rownum=1");
+    console.log('Result: ', result);
   } catch (error) {
-    console.error('Error al conectar a la base de datos:', error.message);
+    console.log('Error al ejecutar la consulta', error);
+  } finally {
+    await connection.close();
   }
 }
-
-testDatabaseConnection();
+testDBConnection();
