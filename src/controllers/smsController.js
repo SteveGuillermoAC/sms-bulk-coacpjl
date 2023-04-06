@@ -1,3 +1,10 @@
+/**
+ * @author Steve Aucapiña
+ * 
+ * Controladores para smsenvio y consulta-estado-transaccion
+ * 
+ */
+
 const axios = require('axios');
 const config = require('../config/config.js');
 const uuid = require('uuid');
@@ -38,6 +45,7 @@ exports.sendSms = async (req, res) => {
     };
 
     console.log('Enviando SMS...');
+    
     const response = await axios.post(config.apiUrl, data, { headers });
     console.log('Respuesta del API:', response.data);
 

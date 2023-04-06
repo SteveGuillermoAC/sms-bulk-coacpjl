@@ -1,6 +1,6 @@
-const database = require('../../src/database/database.js');
+const database = require('../database/database.js');
 async function testDBConnection() {
-    const connection = await database.connect();
+const connection = await database.connect();
 
   try {
    const result = await connection.execute("SELECT nombrelegal from tpersona where rownum=1");
